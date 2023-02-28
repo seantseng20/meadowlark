@@ -14,21 +14,15 @@ app.use(express.static(__dirname+'/public'))
 
 const port=process.env.PORT||3000
 
-const fortunes=[
-    "Conquer your fears or they will conquer you.",
-    "River need springs.",
-    "Do not fear what you dont know.",
-    "You will have a pleasant surpise.",
-    "whenever possible,keep it simple.",
-]
+const fortune=require('./lib/fortune')
 
 app.get('/',(req,res)=>{
 res.render('home')
 })
 
 app.get('/about',(req,res)=>{
-  const randomFortune=fortunes[Math.floor(Math.random()*fortunes.length)]
-  res.render('about',{fortune:randomFortune})
+
+  res.render('about',{fortune:fortune.getFortune})
 })
 
 
