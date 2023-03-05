@@ -1,0 +1,12 @@
+<div class="weatherWiget">
+    {{#each partials.weatherContext}}
+      <div class="location">
+        <h3>{{location.name}}</h3>
+        <a href="{{location.forcastUrl}}">
+            <img scr="{{iconUrl}}" alt="{{weather}}">
+            {{weather}},{{temp}}
+        </a>
+      </div>
+    {{/each}}
+    <small>Source:<a href="https://openweathermap.org">OpenWeatherMap</a></small>  
+</div>    
