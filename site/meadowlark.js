@@ -1,8 +1,12 @@
 const express=require('express')
 // const {engine:expressHandlebars}=require('express-handlebars')
 const expressHandlebars=require('express-handlebars')
+const bodyParser=require('body-parser')
+
 const handlers=require('./lib/handlers')
 const weatherMiddleware=require('./lib/middleware/weather')
+
+
 const app=express()
 
 //設置Handlebars view engine
@@ -19,6 +23,9 @@ app.engine('handlebars',expressHandlebars.engine({
 
 app.set('view engine','handlebars')
 
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
+
 app.use(express.static(__dirname+'/public'))
 
 const port=process.env.PORT||3000
@@ -30,6 +37,10 @@ app.get('/',handlers.home)
 app.get('/about',handlers.about)
 
 app.get('/section-test',handlers.sectiontest)
+
+app.get('/newsletter-signup',handlers.newsletterSignup)
+app.post('/newsletter-signup/process',handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you',handlers.newsletterSignupThankyou)
 
 //自訂404頁面
 app.use(handlers.notFound)

@@ -34,4 +34,6 @@ const getWeatherData=()=>Promise.resolve( [
     next()
   }
  
+
+  
  module.exports=weatherMiddleware 
