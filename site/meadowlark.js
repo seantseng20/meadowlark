@@ -2,7 +2,7 @@ const express=require('express')
 // const {engine:expressHandlebars}=require('express-handlebars')
 const expressHandlebars=require('express-handlebars')
 const bodyParser=require('body-parser')
-
+const multiparty=require('multiparty')
 const handlers=require('./lib/handlers')
 const weatherMiddleware=require('./lib/middleware/weather')
 
@@ -38,9 +38,19 @@ app.get('/about',handlers.about)
 
 app.get('/section-test',handlers.sectiontest)
 
+app.get('/newsletter',handlers.newsletter)
+app.post('api/newsletter-signup',handlers.api.newsletterSignup)
 app.get('/newsletter-signup',handlers.newsletterSignup)
 app.post('/newsletter-signup/process',handlers.newsletterSignupProcess)
 app.get('/newsletter-signup/thank-you',handlers.newsletterSignupThankyou)
+app.get('/contest/vacation-photo', handlers.vacationPhotoContest)
+app.post('/contest/vacation-photo/:year/:month',(req,res)=>{
+    const form=new multiparty.Form()
+    form.parse(req,(err,fields,files)=>{
+        if(err) return res.status(500).send({error:err.message})
+        handlers.vacationPhotoContestProcess(req,res,fields,files)
+    })
+})
 
 //自訂404頁面
 app.use(handlers.notFound)
