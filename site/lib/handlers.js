@@ -53,3 +53,7 @@ exports.api.vacationPhotoContest=(req,res,fields,files)=>{
   console.log('files:',files)
   res.send({result:'sucess'})
 }
+
+exports.vacationPhotoContestProcessThankYou = (req, res) => {
+  res.render('contest/vacation-photo-thank-you')
+}

@@ -43,6 +43,7 @@ app.post('api/newsletter-signup',handlers.api.newsletterSignup)
 app.get('/newsletter-signup',handlers.newsletterSignup)
 app.post('/newsletter-signup/process',handlers.newsletterSignupProcess)
 app.get('/newsletter-signup/thank-you',handlers.newsletterSignupThankyou)
+
 app.get('/contest/vacation-photo', handlers.vacationPhotoContest)
 app.post('/contest/vacation-photo/:year/:month',(req,res)=>{
     const form=new multiparty.Form()
@@ -51,6 +52,8 @@ app.post('/contest/vacation-photo/:year/:month',(req,res)=>{
         handlers.vacationPhotoContestProcess(req,res,fields,files)
     })
 })
+
+app.get('/contest/vacation-photo-thank-you', handlers.vacationPhotoContestProcessThankYou)
 
 //自訂404頁面
 app.use(handlers.notFound)
